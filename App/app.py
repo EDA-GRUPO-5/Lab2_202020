@@ -81,8 +81,8 @@ def printMenu():
     print("1- Cargar Datos")
     print("2- Contar los elementos de la Lista")
     print("3- Contar elementos filtrados por palabra clave")
-    print("4- Consultar elementos a partir de dos listas")
-    print("5- Ordenar elementos filtrados por un criterio")
+    print("4- Consultar elementos a partir de dos listas (REQ. 3)"
+    print("5- Ordenar elementos filtrados por un criterio (REQ. 2)"
     print("0- Salir")
 
 def countElementsFilteredByColumn(criteria, column, lst):
@@ -167,27 +167,27 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                lista = loadCSVFile("Data/small.csv") #llamar funcion cargar datos
-                print("Datos cargados, ",lista['size']," elementos cargados")
+                lista = loadCSVFile("Data/MoviesCastingRaw-small.csv") #llamar funcion cargar datos
+                print("Datos cargados:",lista['size'],"elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")    
-                else: print("La lista tiene ",lista['size']," elementos")
+                else: print("La lista tiene",lista['size'],"elementos")
             elif int(inputs[0])==3: #opcion 3
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else:   
                     criteria =input('Ingrese el criterio de búsqueda\n')
                     counter=countElementsFilteredByColumn(criteria, "nombre", lista) #filtrar una columna por criterio  
-                    print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
+                    print("Coinciden",counter,"elementos con el crtierio", criteria  )
             elif int(inputs[0])==4: #opcion 4
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else:
                     criteria =input('Ingrese el criterio de búsqueda\n')
                     counter=countElementsByCriteria(criteria,0,lista)
-                    print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
-            elif int(inputs[0])==5:
+                    print("Coinciden",counter,"elementos con el crtierio:", criteria ,"(en construcción ...)")
+            elif int(inputs[0])==5 #opcion 5:
                 if lista==None or lista['size']==0:
                     print("La lista está vacía")
                 else:
@@ -198,7 +198,7 @@ def main():
                         mejor_peor=input("Ingrese si desea su ranking de MEJOR o PEOR\n")
                         criteria = input("Ingrese el criterio COUNT o AVERAGE\n")
                         lista_nueva=orderElementsByCriteria(lista,num_peliculas,mejor_peor,criteria)
-                        print("Su lista ordernada es: ",lista_nueva)          
+                        print("Su lista ordernada es:",lista_nueva)          
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
                 

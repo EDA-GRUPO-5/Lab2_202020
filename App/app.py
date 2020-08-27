@@ -32,6 +32,12 @@ import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
+from Sorting.insertionsort import insertionSort 
+from Test.sorting.less_greater import less_count
+from Test.sorting.less_greater import greater_count
+from Test.sorting.less_greater import less_average
+from Test.sorting.less_greater import greater_average
+
 
 from time import process_time 
 
@@ -76,6 +82,7 @@ def printMenu():
     print("2- Contar los elementos de la Lista")
     print("3- Contar elementos filtrados por palabra clave")
     print("4- Consultar elementos a partir de dos listas")
+    print("5- Ordenar elementos filtrados por un criterio")
     print("0- Salir")
 
 def countElementsFilteredByColumn(criteria, column, lst):
@@ -113,11 +120,38 @@ def countElementsByCriteria(criteria, column, lst):
     """
     return 0
 
-def orderElementsByCriteria(function, column, lst, elements):
+def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-    return 0
+
+    lista_nueva=[]
+    if criterio.lower()=="count":
+        t1_start = process_time()
+        if mejor_peor.lower()=="peor":
+            insertionSort(lst,less_count)
+        else:
+            insertionSort(lst, greater_count)
+        for peliculas in lst["elements"]:
+            if len(lista_nueva)<num_peliculas:
+                lista_nueva.append((peliculas["original_title"],peliculas["vote_count"]))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    else:
+        t1_start = process_time()
+        if mejor_peor.lower()=="peor":
+            insertionSort(lst,less_average)
+        else:
+            insertionSort(lst, greater_average)
+        for peliculas in lst["elements"]:
+            if len(lista_nueva)<num_peliculas:
+                lista_nueva.append((peliculas["original_title"],peliculas["vote_average"]))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return lista_nueva
+
+
+        
 
 def main():
     """
@@ -133,7 +167,7 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                lista = loadCSVFile("Data/test.csv") #llamar funcion cargar datos
+                lista = loadCSVFile("Data/small.csv") #llamar funcion cargar datos
                 print("Datos cargados, ",lista['size']," elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
@@ -153,8 +187,21 @@ def main():
                     criteria =input('Ingrese el criterio de búsqueda\n')
                     counter=countElementsByCriteria(criteria,0,lista)
                     print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
+            elif int(inputs[0])==5:
+                if lista==None or lista['size']==0:
+                    print("La lista está vacía")
+                else:
+                    num_peliculas=int(input("Ingrese el número de películas para su ranking\n"))
+                    if num_peliculas<10:
+                        print("El número de películas debe ser 10 o más")
+                    else:
+                        mejor_peor=input("Ingrese si desea su ranking de MEJOR o PEOR\n")
+                        criteria = input("Ingrese el criterio COUNT o AVERAGE\n")
+                        lista_nueva=orderElementsByCriteria(lista,num_peliculas,mejor_peor,criteria)
+                        print("Su lista ordernada es: ",lista_nueva)          
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
                 
 if __name__ == "__main__":
     main()
+    

@@ -174,7 +174,6 @@ def main():
                     print("La lista esta vacía")    
                 else: print("La lista tiene",lista['size'],"elementos")
             elif int(inputs[0])==3: #opcion 3
-                elif int(inputs[0])==3: #opcion 3
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else: 

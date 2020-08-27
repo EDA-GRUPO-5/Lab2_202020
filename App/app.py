@@ -174,12 +174,14 @@ def main():
                     print("La lista esta vacía")    
                 else: print("La lista tiene",lista['size'],"elementos")
             elif int(inputs[0])==3: #opcion 3
+                elif int(inputs[0])==3: #opcion 3
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
-                else:   
+                else: 
                     criteria =input('Ingrese el criterio de búsqueda\n')
-                    counter=countElementsFilteredByColumn(criteria, "nombre", lista) #filtrar una columna por criterio  
-                    print("Coinciden",counter,"elementos con el crtierio", criteria  )
+                    column= input("Ingrese la columna de búsqueda\n")
+                    counter=countElementsFilteredByColumn(criteria, column, lista) #filtrar una columna por criterio  
+                    print("Coinciden",counter,"elementos con el criterio", criteria )
             elif int(inputs[0])==4: #opcion 4
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")

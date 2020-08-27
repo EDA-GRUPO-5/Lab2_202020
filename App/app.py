@@ -81,8 +81,8 @@ def printMenu():
     print("1- Cargar Datos")
     print("2- Contar los elementos de la Lista")
     print("3- Contar elementos filtrados por palabra clave")
-    print("4- Consultar elementos a partir de dos listas (REQ. 3)"
-    print("5- Ordenar elementos filtrados por un criterio (REQ. 2)"
+    print("4- Consultar elementos a partir de dos listas (REQ. 3)")
+    print("5- Ordenar elementos filtrados por un criterio (REQ. 2)")
     print("0- Salir")
 
 def countElementsFilteredByColumn(criteria, column, lst):

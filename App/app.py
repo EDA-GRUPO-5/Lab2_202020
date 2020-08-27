@@ -187,7 +187,7 @@ def main():
                     criteria =input('Ingrese el criterio de búsqueda\n')
                     counter=countElementsByCriteria(criteria,0,lista)
                     print("Coinciden",counter,"elementos con el crtierio:", criteria ,"(en construcción ...)")
-            elif int(inputs[0])==5 #opcion 5:
+            elif int(inputs[0])==5: #opcion 5
                 if lista==None or lista['size']==0:
                     print("La lista está vacía")
                 else:

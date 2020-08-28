@@ -116,6 +116,8 @@ def countElementsFilteredByColumn(criteria, column, lst):
         t1_stop = process_time() #tiempo final
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return counter
+ 
+#Laboratorio 2
 
 def countElementsByCriteria(criteria, column, lst):
     """
@@ -165,6 +167,8 @@ def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
         t1_stop = process_time()
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return lista_nueva
+
+#Esta parte es el resto del reto 1
         
 def entenderUnGenero(lst, genero):
     """

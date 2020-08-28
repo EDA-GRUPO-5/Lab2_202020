@@ -118,7 +118,20 @@ def countElementsByCriteria(criteria, column, lst):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
-    return 0
+    if lst['size']==0:
+        print("La lista esta vacía")  
+        return 0
+    else:
+        t1_start = process_time() #tiempo inicial
+        counter=0
+        iterator = it.newIterator(lst)
+        while  it.hasNext(iterator):
+            element = it.next(iterator)
+            if criteria.lower() in element["director_name"].lower(): #filtrar por palabra clave 
+                counter+=1           
+        t1_stop = process_time() #tiempo final
+        print("Tiempo de ejecución",t1_stop-t1_start,"segundos")
+    return counter
 
 def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
     """
@@ -167,7 +180,7 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                lista = loadCSVFile("Data/MoviesCastingRaw-small.csv") #llamar funcion cargar datos
+                lista = loadCSVFile("Data/SmallMoviesDetailsCleaned.csv") #llamar funcion cargar datos
                 print("Datos cargados:",lista['size'],"elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
@@ -187,7 +200,7 @@ def main():
                 else:
                     criteria =input('Ingrese el criterio de búsqueda\n')
                     counter=countElementsByCriteria(criteria,0,lista)
-                    print("Coinciden",counter,"elementos con el crtierio:", criteria ,"(en construcción ...)")
+                    print("Numero de peliculas:",counter)
             elif int(inputs[0])==5: #opcion 5
                 if lista==None or lista['size']==0:
                     print("La lista está vacía")

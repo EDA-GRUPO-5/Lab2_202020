@@ -117,7 +117,7 @@ def countElementsFilteredByColumn(criteria, column, lst):
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return counter
  
-#Laboratorio 2
+#ENTREGA LABORATORIO 2
 
 def countElementsByCriteria(criteria, column, lst):
     """
@@ -142,33 +142,35 @@ def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-
-    lista_nueva=[]
-    if criterio.lower()=="count":
-        t1_start = process_time()
-        if mejor_peor.lower()=="peor":
-            insertionSort(lst,less_count)
-        else:
-            insertionSort(lst, greater_count)
-        for peliculas in lst["elements"]:
-            if len(lista_nueva)<num_peliculas:
-                lista_nueva.append((peliculas["original_title"],peliculas["vote_count"]))
-        t1_stop = process_time()
-        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    lista_id=[]
+    if lst['size']==0:
+        print("La lista esta vacía")  
+        return 0
     else:
-        t1_start = process_time()
-        if mejor_peor.lower()=="peor":
-            insertionSort(lst,less_average)
-        else:
-            insertionSort(lst, greater_average)
-        for peliculas in lst["elements"]:
-            if len(lista_nueva)<num_peliculas:
-                lista_nueva.append((peliculas["original_title"],peliculas["vote_average"]))
-        t1_stop = process_time()
-        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
-    return lista_nueva
+        t1_start = process_time() #tiempo inicial
+        counter=0
+        iterator = it.newIterator(lst)
+        while  it.hasNext(iterator):
+            element = it.next(iterator)
+            if criteria.lower() in element["director_name"].lower(): #filtrar por palabra clave 
+                counter+=1
+                lista_id.append((element["id"]))
+        lista_peliculas=[]
+        lista_promedio = []
+        #lista_id = map(int, lista_id)
+        iterator = it.newIterator(lst2)
+        while  it.hasNext(iterator):
+            element = it.next(iterator)
+            if element["id"] in lista_id:
+                lista_peliculas.append(element["original_title"])
+                lista_promedio.append(element["vote_average"])
+        lista_promedio1 = map(float,lista_promedio)
+        promedio_final = sum(lista_promedio1)/len(lista_promedio)
+        t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return lista_peliculas, counter, promedio_final
 
-#Esta parte es el resto del reto 1
+#ESTA PARTE ES EL RESTO DEL RETO 1 (EN EJECUCIÓN)
         
 def entenderUnGenero(lst, genero):
     """
@@ -220,12 +222,11 @@ def main():
                     counter=countElementsFilteredByColumn(criteria, column, lista) #filtrar una columna por criterio  
                     print("Coinciden",counter,"elementos con el criterio", criteria )
             elif int(inputs[0])==4: #opcion 4
-                if lista==None or lista['size']==0: #obtener la longitud de la lista
-                    print("La lista esta vacía")
-                else:
-                    criteria =input('Ingrese el criterio de búsqueda\n')
-                    counter=countElementsByCriteria(criteria,0,lista)
-                    print("Numero de peliculas:",counter)
+                lista = loadCSVFile("Data/MoviesCastingRaw-small.csv")
+                lista2 = loadCSVFile("Data/SmallMoviesDetailsCleaned.csv")
+                criteria =input('Ingrese el criterio de búsqueda\n')
+                counter=countElementsByCriteria(criteria,0,lista, lista2)
+                print("Lista, numero y promedio de peliculas de", criteria,"\n",counter)
             elif int(inputs[0])==5: #opcion 5
                 if lista==None or lista['size']==0:
                     print("La lista está vacía")

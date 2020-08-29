@@ -84,7 +84,7 @@ def printMenu():
     print("3- Contar elementos filtrados por palabra clave")
     print("4- Consultar elementos a partir de dos listas (REQ.3)")
     print("5- Ordenar elementos filtrados por un criterio (REQ.2)")
-    print("6- ")
+    print("6- EN EJECUCIÓN")
     print("7- Entender las características de un género de películas (REQ. 5)")
     print("0- Salir")
 
@@ -155,7 +155,30 @@ def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-    
+    lista_nueva=[]
+    if criterio.lower()=="count":
+        t1_start = process_time()
+        if mejor_peor.lower()=="peor":
+            insertionSort(lst,less_count)
+        else:
+            insertionSort(lst, greater_count)
+        for peliculas in lst["elements"]:
+            if len(lista_nueva)<num_peliculas:
+                lista_nueva.append((peliculas["original_title"],peliculas["vote_count"]))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    else:
+        t1_start = process_time()
+        if mejor_peor.lower()=="peor":
+            insertionSort(lst,less_average)
+        else:
+            insertionSort(lst, greater_average)
+        for peliculas in lst["elements"]:
+            if len(lista_nueva)<num_peliculas:
+                lista_nueva.append((peliculas["original_title"],peliculas["vote_average"]))
+        t1_stop = process_time()
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return lista_nueva
 
 #ESTA PARTE ES EL RESTO DEL RETO 1 (EN EJECUCIÓN)
         

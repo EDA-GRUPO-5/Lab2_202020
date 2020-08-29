@@ -138,7 +138,6 @@ def countElementsByCriteria(criteria, column, lst, lst2):
                 lista_id.append((element["id"]))
         lista_peliculas=[]
         lista_promedio = []
-        #lista_id = map(int, lista_id)
         iterator = it.newIterator(lst2)
         while  it.hasNext(iterator):
             element = it.next(iterator)

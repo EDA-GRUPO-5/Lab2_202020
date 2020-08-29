@@ -119,28 +119,9 @@ def countElementsFilteredByColumn(criteria, column, lst):
  
 #ENTREGA LABORATORIO 2
 
-def countElementsByCriteria(criteria, column, lst):
+def countElementsByCriteria(criteria, column, lst, lst2):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
-    """
-    if lst['size']==0:
-        print("La lista esta vacía")  
-        return 0
-    else:
-        t1_start = process_time() #tiempo inicial
-        counter=0
-        iterator = it.newIterator(lst)
-        while  it.hasNext(iterator):
-            element = it.next(iterator)
-            if criteria.lower() in element["director_name"].lower(): #filtrar por palabra clave 
-                counter+=1           
-        t1_stop = process_time() #tiempo final
-        print("Tiempo de ejecución",t1_stop-t1_start,"segundos")
-    return counter
-
-def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
-    """
-    Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
     lista_id=[]
     if lst['size']==0:
@@ -169,6 +150,12 @@ def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
         t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return lista_peliculas, counter, promedio_final
+
+def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
+    """
+    Retorna una lista con cierta cantidad de elementos ordenados por el criterio
+    """
+    
 
 #ESTA PARTE ES EL RESTO DEL RETO 1 (EN EJECUCIÓN)
         
@@ -243,7 +230,7 @@ def main():
                 if lista==None or lista["size"]==0:
                     print("La lista está vacía")
                 else:
-                    
+                 pass
             elif int(inputs[0])==7: #opcion 7
                 if lista==None or lista["size"]==0:
                     print("La lista está vacía")

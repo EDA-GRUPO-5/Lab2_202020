@@ -84,7 +84,7 @@ def printMenu():
     print("3- Contar elementos filtrados por palabra clave")
     print("4- Consultar elementos a partir de dos listas (REQ.3)")
     print("5- Ordenar elementos filtrados por un criterio (REQ.2)")
-    print("6- EN EJECUCIÓN")
+    print("6- Conocer a un actor (REQ. 4)")
     print("7- Entender las características de un género de películas (REQ. 5)")
     print("0- Salir")
 
@@ -179,8 +179,48 @@ def orderElementsByCriteria(lst, num_peliculas, mejor_peor, criterio):
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return lista_nueva
 
-#ESTA PARTE ES EL RESTO DEL RETO 1 (EN EJECUCIÓN)
+#ESTA PARTE ES EL RESTO DEL RETO 1
+
+
+def ConocerActor(lst1, lst2, ActorName):
+    An = ActorName.lower()
+    if lst1['size'] == 0 or lst2['size'] == 0:
+        print("La lista esta vacía")  
+        return 0
+    else:
+        t1_start = process_time() #tiempo inicial
+
+        ListaPeli = []
+        ListaPeliculas = []
+        ListaDirectores = []
+        PromPeliculas = []
+        DirectorColaboraciones = ""
+
+        iterator = it.newIterator(lst2)
+        while  it.hasNext(iterator):
+            element = it.next(iterator)
+            if An in (element["actor1_name"].lower(), element["actor2_name"].lower(), element["actor3_name"].lower(), element["actor4_name"].lower(), element["actor5_name"].lower()):
+                ListaPeli.append(element["id"])
+                ListaDirectores.append(element["director_name"])
+
+        x = len(ListaPeli)
+        DirectorColaboraciones = max(set(ListaDirectores), key=ListaDirectores.count)
         
+        iterator2 = it.newIterator(lst1)
+        while  it.hasNext(iterator2):
+            element = it.next(iterator2)
+            if element["id"] in ListaPeli:
+                ListaPeliculas.append(element["original_title"])
+                PromPeliculas.append(float(element["vote_average"]))
+
+        PromedioP = sum(PromPeliculas)/x
+        t1_stop = process_time() #tiempo final
+
+        print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+
+    return (ListaPeliculas, PromedioP, DirectorColaboraciones, x)
+   
+   
 def entenderUnGenero(lst, genero):
     """
     Retorna una lista con la cantidad, nombres y promedio de votos de películas de un género dado
@@ -247,11 +287,14 @@ def main():
                         criteria = input("Ingrese el criterio COUNT o AVERAGE\n")
                         lista_nueva=orderElementsByCriteria(lista,num_peliculas,mejor_peor,criteria)
                         print("Su lista ordernada es:",lista_nueva)
-            elif int(inputs[0])==6: #opcion 6
-                if lista==None or lista["size"]==0:
+            elif int(inputs[0]) == 6: #Opcion 6
+                if lista==None or lista['size']==0:
                     print("La lista está vacía")
                 else:
-                 pass
+                    lista2 = loadCSVFile("Data/MoviesCastingRaw-small.csv")
+                    NombreActor = input("Ingrese el nombre del actor del cual quiere conocer\n")
+                    rtaLP, rtaPP, rtaDC, rtaLen = ConocerActor(lista, lista2, NombreActor)
+                    print(f"El actor {NombreActor} ha participado en {rtaLen} peliculas y son {rtaLP}\nCon un promedio de {rtaPP} y el director con el que mas ha colaborado es {rtaDC}")
             elif int(inputs[0])==7: #opcion 7
                 if lista==None or lista["size"]==0:
                     print("La lista está vacía")
